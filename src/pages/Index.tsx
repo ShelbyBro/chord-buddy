@@ -168,86 +168,99 @@ const Index = () => {
   }, [isListening]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
-      <header className="pt-8 pb-6 px-6 flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-medium text-gray-900">Guitar Tuner</h1>
-          <p className="text-sm text-muted-foreground">Tune with precision</p>
-        </div>
-        <div className="flex items-center space-x-2">
-          <CalibrationModal 
-            referenceFrequency={referenceFrequency}
-            onReferenceChange={handleReferenceChange}
-          />
-          <Button
-            variant={isListening ? "default" : "outline"}
-            size="icon"
-            className={`rounded-full h-10 w-10 ${
-              isListening ? "bg-primary" : "bg-white"
-            }`}
-            onClick={toggleListening}
-          >
-            {isListening ? (
-              <MicOff className="h-5 w-5" />
-            ) : (
-              <Mic className="h-5 w-5" />
-            )}
-          </Button>
-        </div>
-      </header>
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white relative">
+      {/* Background image with overlay */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center z-0 opacity-15" 
+        style={{ 
+          backgroundImage: 'url(https://images.unsplash.com/photo-1470813740244-df37b8c1edcb)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }} 
+      />
+      
+      {/* Content with relative positioning to appear above the background */}
+      <div className="relative z-10 flex flex-col min-h-screen">
+        <header className="pt-8 pb-6 px-6 flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-medium text-gray-900">Guitar Tuner</h1>
+            <p className="text-sm text-muted-foreground">Tune with precision</p>
+          </div>
+          <div className="flex items-center space-x-2">
+            <CalibrationModal 
+              referenceFrequency={referenceFrequency}
+              onReferenceChange={handleReferenceChange}
+            />
+            <Button
+              variant={isListening ? "default" : "outline"}
+              size="icon"
+              className={`rounded-full h-10 w-10 ${
+                isListening ? "bg-primary" : "bg-white"
+              }`}
+              onClick={toggleListening}
+            >
+              {isListening ? (
+                <MicOff className="h-5 w-5" />
+              ) : (
+                <Mic className="h-5 w-5" />
+              )}
+            </Button>
+          </div>
+        </header>
 
-      <main className="flex-1 flex flex-col max-w-3xl w-full mx-auto px-6 pb-16">
-        <div className="mb-8">
-          <TunerDisplay 
-            currentNote={activeString ? `${activeString.note}${activeString.octave}` : currentNote}
-            currentFrequency={currentFrequency}
-            targetFrequency={activeString ? activeString.frequency : null}
-            cents={centsDifference}
-            isListening={isListening}
-          />
-        </div>
+        <main className="flex-1 flex flex-col max-w-3xl w-full mx-auto px-6 pb-16">
+          <div className="mb-8">
+            <TunerDisplay 
+              currentNote={activeString ? `${activeString.note}${activeString.octave}` : currentNote}
+              currentFrequency={currentFrequency}
+              targetFrequency={activeString ? activeString.frequency : null}
+              cents={centsDifference}
+              isListening={isListening}
+            />
+          </div>
 
-        <div className="mb-8">
-          <TuningSelector
-            tuningOptions={TUNING_OPTIONS}
-            selectedTuning={selectedTuning}
-            onSelectTuning={handleTuningChange}
-          />
-        </div>
+          <div className="mb-8">
+            <TuningSelector
+              tuningOptions={TUNING_OPTIONS}
+              selectedTuning={selectedTuning}
+              onSelectTuning={handleTuningChange}
+            />
+          </div>
 
-        <div className="space-y-2">
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-sm font-medium text-gray-700">Guitar Strings</h2>
-            <div className="text-xs text-muted-foreground flex items-center">
-              <Info className="h-3 w-3 mr-1" />
-              Tap a string to focus on it
+          <div className="space-y-2">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-sm font-medium text-gray-700">Guitar Strings</h2>
+              <div className="text-xs text-muted-foreground flex items-center">
+                <Info className="h-3 w-3 mr-1" />
+                Tap a string to focus on it
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              {adjustedTuning.map((string) => (
+                <GuitarString
+                  key={`${string.note}${string.octave}`}
+                  stringData={string}
+                  isActive={
+                    activeString
+                      ? activeString.note === string.note && 
+                        activeString.octave === string.octave
+                      : false
+                  }
+                  deviation={
+                    activeString && 
+                    activeString.note === string.note && 
+                    activeString.octave === string.octave
+                      ? centsDifference
+                      : null
+                  }
+                  onClick={() => handleStringSelect(string)}
+                />
+              ))}
             </div>
           </div>
-
-          <div className="space-y-3">
-            {adjustedTuning.map((string) => (
-              <GuitarString
-                key={`${string.note}${string.octave}`}
-                stringData={string}
-                isActive={
-                  activeString
-                    ? activeString.note === string.note && 
-                      activeString.octave === string.octave
-                    : false
-                }
-                deviation={
-                  activeString && 
-                  activeString.note === string.note && 
-                  activeString.octave === string.octave
-                    ? centsDifference
-                    : null
-                }
-                onClick={() => handleStringSelect(string)}
-              />
-            ))}
-          </div>
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 };
