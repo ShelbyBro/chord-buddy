@@ -31,7 +31,7 @@ const TuningSelector: React.FC<TuningSelectorProps> = ({
       <DropdownMenuTrigger asChild>
         <Button 
           variant="outline" 
-          className="w-full flex justify-between items-center bg-white/80 dark:bg-black/30 backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-left h-auto py-3"
+          className="w-full flex justify-between items-center bg-white/10 dark:bg-black/30 backdrop-blur-sm border border-gray-800 dark:border-gray-700 text-left h-auto py-3"
         >
           <div className="flex items-center gap-2">
             {selectedTuning.instrument === 'guitar' ? (
@@ -40,7 +40,7 @@ const TuningSelector: React.FC<TuningSelectorProps> = ({
               <Music className="h-4 w-4 text-primary opacity-70" />
             )}
             <div>
-              <div className="font-medium dark:text-white">{selectedTuning.name}</div>
+              <div className="font-medium text-white">{selectedTuning.name}</div>
               <div className="text-xs text-muted-foreground">
                 {selectedTuning.instrument === 'guitar' 
                   ? 'Guitar tuning' 
@@ -51,7 +51,7 @@ const TuningSelector: React.FC<TuningSelectorProps> = ({
           <ChevronDown className="h-4 w-4 ml-2 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-full min-w-[240px] p-1 dark:bg-gray-800 dark:border-gray-700">
+      <DropdownMenuContent className="w-full min-w-[240px] p-1 dark:bg-gray-800/95 dark:border-gray-700 backdrop-blur-md">
         {/* Guitar tunings section */}
         <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground">
           Guitar Tunings
@@ -60,7 +60,7 @@ const TuningSelector: React.FC<TuningSelectorProps> = ({
           <DropdownMenuItem
             key={tuning.id}
             className={`flex justify-between items-center cursor-pointer py-3 ${
-              selectedTuning.id === tuning.id ? 'bg-secondary dark:bg-gray-700' : ''
+              selectedTuning.id === tuning.id ? 'bg-secondary/60 dark:bg-gray-700/80' : ''
             }`}
             onClick={() => onSelectTuning(tuning)}
           >
@@ -89,7 +89,7 @@ const TuningSelector: React.FC<TuningSelectorProps> = ({
           <DropdownMenuItem
             key={tuning.id}
             className={`flex justify-between items-center cursor-pointer py-3 ${
-              selectedTuning.id === tuning.id ? 'bg-secondary dark:bg-gray-700' : ''
+              selectedTuning.id === tuning.id ? 'bg-secondary/60 dark:bg-gray-700/80' : ''
             }`}
             onClick={() => onSelectTuning(tuning)}
           >

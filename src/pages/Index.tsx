@@ -7,6 +7,7 @@ import GuitarString from '@/components/GuitarString';
 import TunerDisplay from '@/components/TunerDisplay';
 import TuningSelector from '@/components/TuningSelector';
 import CalibrationModal from '@/components/CalibrationModal';
+import ChordSelector from '@/components/ChordSelector';
 import { 
   setupAudioContext, 
   teardownAudioContext,
@@ -277,6 +278,9 @@ const Index = () => {
               onSelectTuning={handleTuningChange}
             />
           </div>
+
+          {/* Add the chord selector component */}
+          <ChordSelector instrument={selectedTuning.instrument} />
 
           <div className="space-y-2">
             <div className="flex items-center justify-between mb-3">
