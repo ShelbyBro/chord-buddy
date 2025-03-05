@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-import { Mic, MicOff, Info } from 'lucide-react';
+import { Mic, MicOff, Info, Moon, Sun } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import GuitarString from '@/components/GuitarString';
@@ -35,6 +34,18 @@ const Index = () => {
   const [currentFrequency, setCurrentFrequency] = useState<number | null>(null);
   const [currentNote, setCurrentNote] = useState<string | null>(null);
   const [centsDifference, setCentsDifference] = useState<number | null>(null);
+
+  // State for theme
+  const [darkMode, setDarkMode] = useState(true);
+
+  // Apply dark mode class to body
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
 
   // Effect to update adjusted tuning when reference frequency changes
   useEffect(() => {
@@ -157,6 +168,15 @@ const Index = () => {
     }
   };
 
+  // Toggle theme
+  const toggleTheme = () => {
+    setDarkMode(!darkMode);
+    toast({
+      title: darkMode ? "Light mode enabled" : "Dark mode enabled",
+      description: "Theme has been updated",
+    });
+  };
+
   // Clean up resources when component unmounts
   useEffect(() => {
     return () => {
@@ -168,10 +188,10 @@ const Index = () => {
   }, [isListening]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white relative">
+    <div className="min-h-screen flex flex-col relative">
       {/* Background image with overlay */}
       <div 
-        className="absolute inset-0 bg-cover bg-center z-0 opacity-15" 
+        className="absolute inset-0 bg-cover bg-center z-0 opacity-15 dark:opacity-10" 
         style={{ 
           backgroundImage: 'url(https://images.unsplash.com/photo-1470813740244-df37b8c1edcb)',
           backgroundSize: 'cover',
@@ -183,10 +203,22 @@ const Index = () => {
       <div className="relative z-10 flex flex-col min-h-screen">
         <header className="pt-8 pb-6 px-6 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-medium text-gray-900">Guitar Tuner</h1>
+            <h1 className="text-2xl font-medium text-gray-900 dark:text-white">Guitar Tuner</h1>
             <p className="text-sm text-muted-foreground">Tune with precision</p>
           </div>
           <div className="flex items-center space-x-2">
+            <Button
+              variant="outline"
+              size="icon"
+              className="rounded-full h-10 w-10 bg-white/50 dark:bg-black/20 dark:border-white/10"
+              onClick={toggleTheme}
+            >
+              {darkMode ? (
+                <Sun className="h-5 w-5 text-yellow-400" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )}
+            </Button>
             <CalibrationModal 
               referenceFrequency={referenceFrequency}
               onReferenceChange={handleReferenceChange}
@@ -195,7 +227,7 @@ const Index = () => {
               variant={isListening ? "default" : "outline"}
               size="icon"
               className={`rounded-full h-10 w-10 ${
-                isListening ? "bg-primary" : "bg-white"
+                isListening ? "bg-primary animate-glow" : "bg-white/50 dark:bg-black/20 dark:border-white/10"
               }`}
               onClick={toggleListening}
             >
@@ -229,7 +261,7 @@ const Index = () => {
 
           <div className="space-y-2">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-sm font-medium text-gray-700">Guitar Strings</h2>
+              <h2 className="text-sm font-medium text-gray-700 dark:text-gray-200">Guitar Strings</h2>
               <div className="text-xs text-muted-foreground flex items-center">
                 <Info className="h-3 w-3 mr-1" />
                 Tap a string to focus on it

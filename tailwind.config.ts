@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -109,6 +108,18 @@ export default {
 				'float': {
 					'0%, 100%': { transform: 'translateY(0)' },
 					'50%': { transform: 'translateY(-10px)' }
+				},
+				'glow': {
+					'0%, 100%': { 
+						boxShadow: '0 0 5px rgba(79, 70, 229, 0.5), 0 0 20px rgba(79, 70, 229, 0.3)' 
+					},
+					'50%': { 
+						boxShadow: '0 0 15px rgba(79, 70, 229, 0.8), 0 0 30px rgba(79, 70, 229, 0.5)' 
+					}
+				},
+				'shimmer': {
+					'0%': { backgroundPosition: '200% 0' },
+					'100%': { backgroundPosition: '-200% 0' }
 				}
 			},
 			animation: {
@@ -120,7 +131,13 @@ export default {
 				'scale-out': 'scale-out 0.2s ease-out',
 				'slide-in': 'slide-in 0.5s ease-out',
 				'pulse-gentle': 'pulse-gentle 2s ease-in-out infinite',
-				'float': 'float 3s ease-in-out infinite'
+				'float': 'float 3s ease-in-out infinite',
+				'glow': 'glow 2s ease-in-out infinite',
+				'shimmer': 'shimmer 8s ease-in-out infinite'
+			},
+			backgroundImage: {
+				'gradient-shimmer': 'linear-gradient(90deg, transparent, rgba(79, 70, 229, 0.1), transparent)',
+				'dark-gradient': 'linear-gradient(to bottom, #1A1F2C, #221F26)'
 			},
 			transitionProperty: {
 				'height': 'height',

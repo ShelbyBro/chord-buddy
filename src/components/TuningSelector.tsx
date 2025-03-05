@@ -26,10 +26,10 @@ const TuningSelector: React.FC<TuningSelectorProps> = ({
       <DropdownMenuTrigger asChild>
         <Button 
           variant="outline" 
-          className="w-full flex justify-between items-center bg-white/80 backdrop-blur-sm border border-gray-200 text-left h-auto py-3"
+          className="w-full flex justify-between items-center bg-white/80 dark:bg-black/30 backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-left h-auto py-3"
         >
           <div>
-            <div className="font-medium">{selectedTuning.name}</div>
+            <div className="font-medium dark:text-white">{selectedTuning.name}</div>
             <div className="text-xs text-muted-foreground">
               {selectedTuning.id === 'standard' 
                 ? 'Standard guitar tuning' 
@@ -39,17 +39,17 @@ const TuningSelector: React.FC<TuningSelectorProps> = ({
           <ChevronDown className="h-4 w-4 ml-2 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-full min-w-[240px] p-1">
+      <DropdownMenuContent className="w-full min-w-[240px] p-1 dark:bg-gray-800 dark:border-gray-700">
         {tuningOptions.map((tuning) => (
           <DropdownMenuItem
             key={tuning.id}
             className={`flex justify-between items-center cursor-pointer py-3 ${
-              selectedTuning.id === tuning.id ? 'bg-secondary' : ''
+              selectedTuning.id === tuning.id ? 'bg-secondary dark:bg-gray-700' : ''
             }`}
             onClick={() => onSelectTuning(tuning)}
           >
             <div className="flex flex-col">
-              <span className="font-medium">{tuning.name}</span>
+              <span className="font-medium dark:text-white">{tuning.name}</span>
               <span className="text-xs text-muted-foreground">
                 {tuning.id === 'standard' 
                   ? 'Standard guitar tuning' 

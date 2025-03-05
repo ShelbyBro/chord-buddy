@@ -44,12 +44,15 @@ const GuitarString: React.FC<GuitarStringProps> = ({
       onClick={onClick}
       className={cn(
         "string-container relative w-full h-20 rounded-lg mb-3 px-6 py-3 transition-all duration-300 cursor-pointer",
-        "border border-gray-200 flex items-center justify-between",
+        "border flex items-center justify-between",
         "hover:shadow-md group",
-        isActive ? "glass-panel" : "bg-white/50",
-        isActive && isInTune ? "ring-2 ring-green-500" : "",
-        isActive && isTooLow ? "ring-2 ring-blue-500" : "",
-        isActive && isTooHigh ? "ring-2 ring-red-500" : ""
+        isActive 
+          ? "glass-panel" 
+          : "bg-white/50 dark:bg-black/20 border-gray-200 dark:border-gray-700",
+        isActive && isInTune ? "ring-2 ring-green-500 dark:ring-green-400" : "",
+        isActive && isTooLow ? "ring-2 ring-blue-500 dark:ring-blue-400" : "",
+        isActive && isTooHigh ? "ring-2 ring-red-500 dark:ring-red-400" : "",
+        isActive && "dark:active-string-glow"
       )}
     >
       <div className="flex items-center space-x-4">
@@ -57,14 +60,14 @@ const GuitarString: React.FC<GuitarStringProps> = ({
           "flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300",
           isActive 
             ? "bg-primary text-white" 
-            : "bg-secondary text-foreground"
+            : "bg-secondary text-foreground dark:bg-gray-800 dark:text-gray-200"
         )}>
           <span className="text-xl font-medium">{stringData.note}</span>
           <span className="text-xs align-top">{stringData.octave}</span>
         </div>
         
         <div className="text-left">
-          <p className="text-sm font-medium">String {stringData.position}</p>
+          <p className="text-sm font-medium dark:text-white">String {stringData.position}</p>
           <p className="text-xs text-muted-foreground">
             {stringData.frequency.toFixed(2)} Hz
           </p>
@@ -75,9 +78,9 @@ const GuitarString: React.FC<GuitarStringProps> = ({
         <div className="absolute right-0 top-0 bottom-0 flex items-center pr-6">
           <div className={cn(
             "flex flex-col items-center px-4 py-2 rounded-l-lg",
-            isInTune ? "text-green-600" : 
-            isTooLow ? "text-blue-600" : 
-            "text-red-600"
+            isInTune ? "text-green-600 dark:text-green-400" : 
+            isTooLow ? "text-blue-600 dark:text-blue-400" : 
+            "text-red-600 dark:text-red-400"
           )}>
             <span className="text-sm font-medium">
               {deviation > 0 ? '+' : ''}{deviation} cents

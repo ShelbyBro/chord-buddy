@@ -47,13 +47,13 @@ const CalibrationModal: React.FC<CalibrationModalProps> = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" size="icon" className="rounded-full h-10 w-10">
+        <Button variant="outline" size="icon" className="rounded-full h-10 w-10 bg-white/50 dark:bg-black/20 dark:border-white/10">
           <Sliders className="h-5 w-5" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-white rounded-lg shadow-lg animate-fade-in">
+      <DialogContent className="sm:max-w-[425px] bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-black/50 animate-fade-in">
         <DialogHeader>
-          <DialogTitle className="text-lg font-medium">Calibration Settings</DialogTitle>
+          <DialogTitle className="text-lg font-medium dark:text-white">Calibration Settings</DialogTitle>
           <DialogDescription className="text-sm text-muted-foreground">
             Adjust the reference pitch for A4 (default: 440 Hz).
           </DialogDescription>
@@ -62,10 +62,10 @@ const CalibrationModal: React.FC<CalibrationModalProps> = ({
         <div className="grid gap-6 py-4">
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor="reference-frequency" className="text-sm font-medium">
+              <Label htmlFor="reference-frequency" className="text-sm font-medium dark:text-gray-200">
                 Reference Frequency (A4)
               </Label>
-              <span className="text-sm font-medium">
+              <span className="text-sm font-medium dark:text-white">
                 {tempFrequency.toFixed(1)} Hz
               </span>
             </div>
@@ -88,7 +88,7 @@ const CalibrationModal: React.FC<CalibrationModalProps> = ({
           
           <div className="space-y-2">
             <div className="flex items-center justify-between mb-2">
-              <Label className="text-sm font-medium">
+              <Label className="text-sm font-medium dark:text-gray-200">
                 Preset Values
               </Label>
             </div>
@@ -96,7 +96,7 @@ const CalibrationModal: React.FC<CalibrationModalProps> = ({
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="flex-1 text-xs h-8"
+                className="flex-1 text-xs h-8 dark:border-gray-700 dark:bg-gray-700/50 dark:hover:bg-gray-700/80"
                 onClick={() => setTempFrequency(432)}
               >
                 A4 = 432 Hz
@@ -104,7 +104,7 @@ const CalibrationModal: React.FC<CalibrationModalProps> = ({
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="flex-1 text-xs h-8"
+                className="flex-1 text-xs h-8 dark:border-gray-700 dark:bg-gray-700/50 dark:hover:bg-gray-700/80"
                 onClick={() => setTempFrequency(440)}
               >
                 A4 = 440 Hz
@@ -112,7 +112,7 @@ const CalibrationModal: React.FC<CalibrationModalProps> = ({
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="flex-1 text-xs h-8"
+                className="flex-1 text-xs h-8 dark:border-gray-700 dark:bg-gray-700/50 dark:hover:bg-gray-700/80"
                 onClick={() => setTempFrequency(444)}
               >
                 A4 = 444 Hz
@@ -122,7 +122,7 @@ const CalibrationModal: React.FC<CalibrationModalProps> = ({
         </div>
         
         <DialogFooter className="flex justify-between">
-          <Button variant="outline" onClick={handleReset}>
+          <Button variant="outline" onClick={handleReset} className="dark:border-gray-700 dark:bg-gray-700/50 dark:hover:bg-gray-700/80">
             Reset to Default
           </Button>
           <Button variant="default" onClick={handleApply}>
