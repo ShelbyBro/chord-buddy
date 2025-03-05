@@ -3,6 +3,7 @@ export interface TuningOption {
   id: string;
   name: string;
   strings: StringNote[];
+  instrument: 'guitar' | 'ukulele';
 }
 
 export interface StringNote {
@@ -22,12 +23,21 @@ export const STANDARD_TUNING: StringNote[] = [
   { note: "E", frequency: 329.63, octave: 4, position: 1 }
 ];
 
-// Common alternative tunings
-export const TUNING_OPTIONS: TuningOption[] = [
+// Standard ukulele tuning (GCEA)
+export const STANDARD_UKULELE_TUNING: StringNote[] = [
+  { note: "G", frequency: 392.00, octave: 4, position: 4 },
+  { note: "C", frequency: 261.63, octave: 4, position: 3 },
+  { note: "E", frequency: 329.63, octave: 4, position: 2 },
+  { note: "A", frequency: 440.00, octave: 4, position: 1 }
+];
+
+// Common guitar tunings
+export const GUITAR_TUNING_OPTIONS: TuningOption[] = [
   {
     id: "standard",
     name: "Standard (E A D G B E)",
-    strings: STANDARD_TUNING
+    strings: STANDARD_TUNING,
+    instrument: 'guitar'
   },
   {
     id: "drop-d",
@@ -39,7 +49,8 @@ export const TUNING_OPTIONS: TuningOption[] = [
       { note: "G", frequency: 196.00, octave: 3, position: 3 },
       { note: "B", frequency: 246.94, octave: 3, position: 2 },
       { note: "E", frequency: 329.63, octave: 4, position: 1 }
-    ]
+    ],
+    instrument: 'guitar'
   },
   {
     id: "open-g",
@@ -51,7 +62,8 @@ export const TUNING_OPTIONS: TuningOption[] = [
       { note: "G", frequency: 196.00, octave: 3, position: 3 },
       { note: "B", frequency: 246.94, octave: 3, position: 2 },
       { note: "D", frequency: 293.66, octave: 4, position: 1 }
-    ]
+    ],
+    instrument: 'guitar'
   },
   {
     id: "half-step-down",
@@ -63,7 +75,8 @@ export const TUNING_OPTIONS: TuningOption[] = [
       { note: "Gb", frequency: 185.00, octave: 3, position: 3 },
       { note: "Bb", frequency: 233.08, octave: 3, position: 2 },
       { note: "Eb", frequency: 311.13, octave: 4, position: 1 }
-    ]
+    ],
+    instrument: 'guitar'
   },
   {
     id: "open-d",
@@ -75,8 +88,58 @@ export const TUNING_OPTIONS: TuningOption[] = [
       { note: "F#", frequency: 185.00, octave: 3, position: 3 },
       { note: "A", frequency: 220.00, octave: 3, position: 2 },
       { note: "D", frequency: 293.66, octave: 4, position: 1 }
-    ]
+    ],
+    instrument: 'guitar'
   }
+];
+
+// Common ukulele tunings
+export const UKULELE_TUNING_OPTIONS: TuningOption[] = [
+  {
+    id: "standard-ukulele",
+    name: "Standard (G C E A)",
+    strings: STANDARD_UKULELE_TUNING,
+    instrument: 'ukulele'
+  },
+  {
+    id: "d-tuning",
+    name: "D Tuning (A D F# B)",
+    strings: [
+      { note: "A", frequency: 440.00, octave: 4, position: 4 },
+      { note: "D", frequency: 293.66, octave: 4, position: 3 },
+      { note: "F#", frequency: 369.99, octave: 4, position: 2 },
+      { note: "B", frequency: 493.88, octave: 4, position: 1 }
+    ],
+    instrument: 'ukulele'
+  },
+  {
+    id: "baritone",
+    name: "Baritone (D G B E)",
+    strings: [
+      { note: "D", frequency: 146.83, octave: 3, position: 4 },
+      { note: "G", frequency: 196.00, octave: 3, position: 3 },
+      { note: "B", frequency: 246.94, octave: 3, position: 2 },
+      { note: "E", frequency: 329.63, octave: 4, position: 1 }
+    ],
+    instrument: 'ukulele'
+  },
+  {
+    id: "low-g",
+    name: "Low G (G C E A)",
+    strings: [
+      { note: "G", frequency: 196.00, octave: 3, position: 4 },
+      { note: "C", frequency: 261.63, octave: 4, position: 3 },
+      { note: "E", frequency: 329.63, octave: 4, position: 2 },
+      { note: "A", frequency: 440.00, octave: 4, position: 1 }
+    ],
+    instrument: 'ukulele'
+  }
+];
+
+// Combined tuning options
+export const TUNING_OPTIONS: TuningOption[] = [
+  ...GUITAR_TUNING_OPTIONS,
+  ...UKULELE_TUNING_OPTIONS
 ];
 
 // Find closest note to a given frequency

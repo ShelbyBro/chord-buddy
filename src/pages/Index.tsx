@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-import { Mic, MicOff, Info, Moon, Sun } from 'lucide-react';
+import { Mic, MicOff, Info, Moon, Sun, Guitar, Music } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import GuitarString from '@/components/GuitarString';
@@ -75,7 +76,7 @@ const Index = () => {
     setCurrentFrequency(null);
     
     toast({
-      title: "Tuning changed",
+      title: `${tuning.instrument === 'guitar' ? 'Guitar' : 'Ukulele'} tuning changed`,
       description: `Switched to ${tuning.name}`,
     });
   };
@@ -187,6 +188,19 @@ const Index = () => {
     };
   }, [isListening]);
 
+  // Get the current instrument icon and name
+  const getCurrentInstrumentIcon = () => {
+    return selectedTuning.instrument === 'guitar' ? (
+      <Guitar className="h-5 w-5 mr-2 text-primary" />
+    ) : (
+      <Music className="h-5 w-5 mr-2 text-primary" />
+    );
+  };
+
+  const getInstrumentName = () => {
+    return selectedTuning.instrument === 'guitar' ? 'Guitar' : 'Ukulele';
+  };
+
   return (
     <div className="min-h-screen flex flex-col relative">
       {/* Background image with overlay */}
@@ -202,9 +216,14 @@ const Index = () => {
       {/* Content with relative positioning to appear above the background */}
       <div className="relative z-10 flex flex-col min-h-screen">
         <header className="pt-8 pb-6 px-6 flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-medium text-gray-900 dark:text-white">Guitar Tuner</h1>
-            <p className="text-sm text-muted-foreground">Tune with precision</p>
+          <div className="flex items-center">
+            {getCurrentInstrumentIcon()}
+            <div>
+              <h1 className="text-2xl font-medium text-gray-900 dark:text-white">
+                {getInstrumentName()} Tuner
+              </h1>
+              <p className="text-sm text-muted-foreground">Tune with precision</p>
+            </div>
           </div>
           <div className="flex items-center space-x-2">
             <Button
@@ -261,7 +280,9 @@ const Index = () => {
 
           <div className="space-y-2">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-sm font-medium text-gray-700 dark:text-gray-200">Guitar Strings</h2>
+              <h2 className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                {getInstrumentName()} Strings
+              </h2>
               <div className="text-xs text-muted-foreground flex items-center">
                 <Info className="h-3 w-3 mr-1" />
                 Tap a string to focus on it
@@ -271,7 +292,7 @@ const Index = () => {
             <div className="space-y-3">
               {adjustedTuning.map((string) => (
                 <GuitarString
-                  key={`${string.note}${string.octave}`}
+                  key={`${string.note}${string.octave}${string.position}`}
                   stringData={string}
                   isActive={
                     activeString
